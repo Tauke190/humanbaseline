@@ -147,10 +147,13 @@ def _sample_session_videos() -> list:
     return selected
 
 
-RESULTS_F = DATA_DIR / "results.csv"
-RESULTS_FIELDS = [
-    "session_id", "started_at", "video_names",
-    "answers", "completed", "completed_at",
+ANSWERS_F = DATA_DIR / "answers.csv"
+ANSWERS_FIELDS = [
+    "session_id", "started_at",
+    "video_idx", "video_name",
+    "true_class_id", "true_class_name",
+    "predicted_class_id", "predicted_class_name",
+    "correct", "elapsed_ms", "answered_at",
 ]
 
 
@@ -171,35 +174,27 @@ def _save_sess(data: dict):
     _sess_path(data["session_id"]).write_text(json.dumps(data, indent=2))
 
 
-def _upsert_results(sess: dict):
-    """Insert or update the single CSV row for this session."""
-    row = {
-        "session_id":   sess["session_id"],
-        "started_at":   sess.get("started_at", ""),
-        "video_names":  json.dumps([v.get("name", os.path.basename(v["path"]))
-                                    for v in sess["videos"]]),
-        "answers":      json.dumps(sess.get("answers", [])),
-        "completed":    sess.get("completed", False),
-        "completed_at": sess.get("completed_at", ""),
-    }
-
-    rows = []
-    found = False
-    if RESULTS_F.exists():
-        with open(RESULTS_F, newline="") as f:
-            for r in csv.DictReader(f):
-                if r["session_id"] == sess["session_id"]:
-                    rows.append(row)
-                    found = True
-                else:
-                    rows.append(r)
-    if not found:
-        rows.append(row)
-
-    with open(RESULTS_F, "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=RESULTS_FIELDS)
-        writer.writeheader()
-        writer.writerows(rows)
+def _append_answer(sess: dict, idx: int, predicted: int, elapsed_ms):
+    """Append one answer row to the shared answers CSV immediately."""
+    video = sess["videos"][idx]
+    write_header = not ANSWERS_F.exists()
+    with open(ANSWERS_F, "a", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=ANSWERS_FIELDS)
+        if write_header:
+            writer.writeheader()
+        writer.writerow({
+            "session_id":           sess["session_id"],
+            "started_at":           sess.get("started_at", ""),
+            "video_idx":            idx,
+            "video_name":           video.get("name", os.path.basename(video["path"])),
+            "true_class_id":        video["class_id"],
+            "true_class_name":      video["class_name"],
+            "predicted_class_id":   predicted,
+            "predicted_class_name": ALL_CLASSES.get(predicted, ""),
+            "correct":              video["class_id"] == predicted,
+            "elapsed_ms":           elapsed_ms,
+            "answered_at":          time.time(),
+        })
 
 
 # ---------------------------------------------------------------------------
@@ -305,15 +300,19 @@ def answer():
     predicted  = int(data.get("predicted_class", -1))
     elapsed_ms = data.get("elapsed_ms", 0)
 
+    # Write this answer to CSV immediately — before anything else
+    _append_answer(sess, idx, predicted, elapsed_ms)
+
+    # Also keep the session JSON up to date
     sess["answers"].append({
-        "video_index":     idx,
-        "true_class_id":   sess["videos"][idx]["class_id"],
-        "true_class_name": sess["videos"][idx]["class_name"],
+        "video_index":          idx,
+        "true_class_id":        sess["videos"][idx]["class_id"],
+        "true_class_name":      sess["videos"][idx]["class_name"],
         "predicted_class_id":   predicted,
         "predicted_class_name": ALL_CLASSES.get(predicted, ""),
-        "correct":         sess["videos"][idx]["class_id"] == predicted,
-        "elapsed_ms":      elapsed_ms,
-        "answered_at":     time.time(),
+        "correct":              sess["videos"][idx]["class_id"] == predicted,
+        "elapsed_ms":           elapsed_ms,
+        "answered_at":          time.time(),
     })
 
     next_idx = idx + 1
@@ -322,10 +321,6 @@ def answer():
         sess["completed_at"] = time.time()
 
     _save_sess(sess)
-    try:
-        _upsert_results(sess)
-    except Exception as exc:
-        app.logger.error("_upsert_results failed: %s", exc)
 
     if sess.get("completed"):
         return jsonify({"done": True, "sid": sid})
