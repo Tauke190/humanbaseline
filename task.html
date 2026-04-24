@@ -138,12 +138,13 @@
           })),
         });
 
-        // Use sendBeacon so the request survives page unload
-        if (navigator.sendBeacon) {
-          navigator.sendBeacon(APPS_SCRIPT_URL, new Blob([payload], { type: 'application/json' }));
-        } else {
-          fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload, keepalive: true }).catch(() => {});
-        }
+        // no-cors + keepalive: works with Apps Script (sendBeacon is blocked by CORS preflight)
+        fetch(APPS_SCRIPT_URL, {
+          method:    'POST',
+          body:      payload,
+          keepalive: true,   // survives tab close
+          mode:      'no-cors',
+        }).catch(() => {});
       } catch (e) {}
     }
 
