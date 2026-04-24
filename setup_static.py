@@ -18,7 +18,7 @@ VIDEOS_SRC    = Path("/mnt/SSD2/synthetic_patient_output/patient_care_videos/rea
 DEST_VIDEOS   = Path(__file__).parent / "static" / "videos"
 MANIFEST_OUT  = Path(__file__).parent / "manifest.json"
 
-IGNORE_IDS       = {8, 9, 11, 22}  # 0-based; 22 = folder 23 has very large files
+IGNORE_IDS       = {8, 9, 11}  # 0-based
 VIDEOS_PER_CLASS = 5
 
 # ---------------------------------------------------------------------------
