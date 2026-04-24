@@ -104,6 +104,25 @@
           }
 
           localStorage.setItem('patientStudySession', JSON.stringify(sess));
+
+          // Send this single answer immediately — one row per answer in the sheet
+          fetch(APPS_SCRIPT_URL, {
+            method:    'POST',
+            body:      JSON.stringify({
+              session_id:         sess.id,
+              videoIndex:         idx,
+              trueClassId:        video.class_id,
+              trueClassName:      video.class_name,
+              predictedClassId:   cls.id,
+              predictedClassName: cls.name,
+              correct:            video.class_id === cls.id,
+              elapsedMs:          Date.now() - startMs,
+              completed:          nextIdx >= total,
+            }),
+            keepalive: true,
+            mode:      'no-cors',
+          }).catch(() => {});
+
           window.location.href = nextIdx >= total ? 'done.html' : `task.html?idx=${nextIdx}`;
         });
 
@@ -111,47 +130,7 @@
       });
     }
 
-    // ── Send partial answers when user leaves the page ──────────────────────
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPo50mfYxWu-GIMmkkN-y6477JH7zetUqjW0msyJt4GpxEZdLKVD9CGvkmv3lbZq5T/exec";
-
-    function sendPartialToServer() {
-      try {
-        const raw = localStorage.getItem('patientStudySession');
-        if (!raw) return;
-        const sess = JSON.parse(raw);
-        if (!sess.answers || sess.answers.length === 0 || sess.completed) return;
-
-        const payload = JSON.stringify({
-          session_id: sess.id,
-          partial:    true,
-          correct:    sess.answers.filter(a => a.correct).length,
-          total:      sess.answers.length,
-          elapsed_ms: sess.answers.reduce((s, a) => s + (a.elapsedMs || 0), 0),
-          answers:    sess.answers.map(a => ({
-            videoIndex:         a.videoIndex,
-            trueClassId:        a.trueClassId,
-            trueClassName:      a.trueClassName,
-            predictedClassId:   a.predictedClassId,
-            predictedClassName: a.predictedClassName,
-            correct:            a.correct,
-            elapsedMs:          a.elapsedMs || 0,
-          })),
-        });
-
-        // no-cors + keepalive: works with Apps Script (sendBeacon is blocked by CORS preflight)
-        fetch(APPS_SCRIPT_URL, {
-          method:    'POST',
-          body:      payload,
-          keepalive: true,   // survives tab close
-          mode:      'no-cors',
-        }).catch(() => {});
-      } catch (e) {}
-    }
-
-    // Fire when user hides / closes the tab
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') sendPartialToServer();
-    });
 
     function escHtml(str) {
       return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
