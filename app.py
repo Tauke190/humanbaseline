@@ -137,6 +137,7 @@ def _sample_session_videos() -> list:
         path = random.choice(VIDEOS_BY_CLASS[cid])
         selected.append({
             "path":       path,
+            "name":       os.path.basename(path),
             "class_id":   cid,
             "class_name": ALL_CLASSES[cid],
         })
@@ -144,6 +145,13 @@ def _sample_session_videos() -> list:
     _save_counts(counts)
     random.shuffle(selected)
     return selected
+
+
+RESULTS_F = DATA_DIR / "results.csv"
+RESULTS_FIELDS = [
+    "session_id", "started_at", "video_names",
+    "answers", "completed", "completed_at",
+]
 
 
 # ---------------------------------------------------------------------------
@@ -161,6 +169,37 @@ def _load_sess(sid: str) -> dict | None:
 
 def _save_sess(data: dict):
     _sess_path(data["session_id"]).write_text(json.dumps(data, indent=2))
+
+
+def _upsert_results(sess: dict):
+    """Insert or update the single CSV row for this session."""
+    row = {
+        "session_id":   sess["session_id"],
+        "started_at":   sess.get("started_at", ""),
+        "video_names":  json.dumps([v.get("name", os.path.basename(v["path"]))
+                                    for v in sess["videos"]]),
+        "answers":      json.dumps(sess.get("answers", [])),
+        "completed":    sess.get("completed", False),
+        "completed_at": sess.get("completed_at", ""),
+    }
+
+    rows = []
+    found = False
+    if RESULTS_F.exists():
+        with open(RESULTS_F, newline="") as f:
+            for r in csv.DictReader(f):
+                if r["session_id"] == sess["session_id"]:
+                    rows.append(row)
+                    found = True
+                else:
+                    rows.append(r)
+    if not found:
+        rows.append(row)
+
+    with open(RESULTS_F, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=RESULTS_FIELDS)
+        writer.writeheader()
+        writer.writerows(rows)
 
 
 # ---------------------------------------------------------------------------
@@ -282,9 +321,11 @@ def answer():
         sess["completed"]    = True
         sess["completed_at"] = time.time()
         _save_sess(sess)
+        _upsert_results(sess)
         return jsonify({"done": True, "sid": sid})
 
     _save_sess(sess)
+    _upsert_results(sess)
     return jsonify({"done": False, "next": next_idx})
 
 
