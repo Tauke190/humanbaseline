@@ -29,7 +29,7 @@ from flask import (
 # Config
 # ---------------------------------------------------------------------------
 
-SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyvCWw8ueNBbi5GwrAxXpDsmhOiID2QCY3MeB7CQBxlSkPQj1jrdyCYugxrMpp1qz02/exec"
+SHEETS_WEBHOOK_URL = "https://script.google.com/macros/library/d/1neMnt-W5I-WeufYclN0OPyDOJ3hdmpSv9x93EdC8nB2JdX8kf7kzU7cP/6"
 
 BASE_DIR   = Path(__file__).parent
 DATA_DIR   = BASE_DIR / "data"
