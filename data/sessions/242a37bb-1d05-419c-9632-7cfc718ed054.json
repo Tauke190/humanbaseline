@@ -1,0 +1,14 @@
+{
+  "session_id": "242a37bb-1d05-419c-9632-7cfc718ed054",
+  "started_at": 1777042353.4485867,
+  "videos": [
+    {
+      "path": "/fake/video.mp4",
+      "name": "video.mp4",
+      "class_id": 0,
+      "class_name": "Test"
+    }
+  ],
+  "answers": [],
+  "completed": false
+}

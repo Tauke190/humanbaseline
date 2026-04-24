@@ -342,6 +342,22 @@ def done_no_sid():
     return render_template("done.html", correct=None, total=None)
 
 
+@app.route("/debug")
+def debug():
+    """Quick health-check: shows what's been saved so far."""
+    sessions = list(SESS_DIR.glob("*.json"))
+    answers_lines = ANSWERS_F.read_text().splitlines() if ANSWERS_F.exists() else []
+    info = {
+        "sess_dir":      str(SESS_DIR),
+        "answers_file":  str(ANSWERS_F),
+        "session_count": len(sessions),
+        "answer_rows":   len(answers_lines) - 1 if answers_lines else 0,
+        "sessions":      [s.name for s in sessions[-10:]],
+        "last_answers":  answers_lines[-5:] if answers_lines else [],
+    }
+    return jsonify(info)
+
+
 # ---------------------------------------------------------------------------
 # Entry point
 # ---------------------------------------------------------------------------

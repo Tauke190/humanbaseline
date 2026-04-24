@@ -1,0 +1,3 @@
+session_id,started_at,video_idx,video_name,true_class_id,true_class_name,predicted_class_id,predicted_class_name,correct,elapsed_ms,answered_at
+242a37bb-1d05-419c-9632-7cfc718ed054,1777042353.4485867,0,video.mp4,0,Test,1,Standing up,False,1234,1777042353.4487708
+267fc616-b760-4516-b394-ba5649fd7f7b,1777042413.5267856,0,05_006.mp4,4,Coughing,1,Standing up,False,500,1777042413.527433

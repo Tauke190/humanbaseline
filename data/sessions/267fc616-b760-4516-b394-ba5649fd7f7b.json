@@ -1,0 +1,43 @@
+{
+  "session_id": "267fc616-b760-4516-b394-ba5649fd7f7b",
+  "started_at": 1777042413.5267856,
+  "videos": [
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/05_persistent_coughing_real/05_006.mp4",
+      "name": "05_006.mp4",
+      "class_id": 4,
+      "class_name": "Coughing"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/06_eating_food_with_tray_real/06_089.mp4",
+      "name": "06_089.mp4",
+      "class_id": 5,
+      "class_name": "Eating food / having meal"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/04_patient_sitting_up_from_bed_real/04_006.mp4",
+      "name": "04_006.mp4",
+      "class_id": 3,
+      "class_name": "Sitting up from bed"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/03_fall_from_standing_real/03_019.mp4",
+      "name": "03_019.mp4",
+      "class_id": 2,
+      "class_name": "Falling to the ground"
+    }
+  ],
+  "answers": [
+    {
+      "video_index": 0,
+      "true_class_id": 4,
+      "true_class_name": "Coughing",
+      "predicted_class_id": 1,
+      "predicted_class_name": "Standing up",
+      "correct": false,
+      "elapsed_ms": 500,
+      "answered_at": 1777042413.5274663
+    }
+  ],
+  "completed": false
+}

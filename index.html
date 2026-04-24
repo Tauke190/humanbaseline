@@ -25,7 +25,17 @@
     </div>
 
     <div class="note">
-      Your results are stored in your browser. You can download them at the end.
+      Your results are stored in your browser. You can return if you close the tab.
+    </div>
+
+    <!-- Shown only when a partial session is detected -->
+    <div id="resumeSection" style="display:none;margin-top:1rem;padding:0.9rem 1rem;background:#fefce8;border:1px solid #fde047;border-radius:8px;text-align:center">
+      <p style="margin:0 0 0.6rem;font-size:0.95rem">
+        You have a session in progress:
+        <strong><span id="resumeProgress"></span></strong>
+      </p>
+      <button class="btn-primary" id="resumeBtn" style="margin-right:0.5rem">Resume →</button>
+      <button class="btn-secondary" id="newBtn">Start fresh</button>
     </div>
 
     <button class="btn-primary" id="startBtn">Start Study →</button>
@@ -33,6 +43,34 @@
   </div>
 
   <script>
+    // ── Resume detection ─────────────────────────────────────────────────────
+    (function checkResume() {
+      try {
+        const raw = localStorage.getItem('patientStudySession');
+        if (!raw) return;
+        const sess = JSON.parse(raw);
+        if (sess.completed || !sess.answers || sess.answers.length === 0) return;
+
+        const answered = sess.answers.length;
+        const total    = sess.videos ? sess.videos.length : '?';
+
+        document.getElementById('resumeProgress').textContent =
+          `${answered} of ${total} videos answered`;
+        document.getElementById('resumeSection').style.display = 'block';
+        document.getElementById('startBtn').style.display      = 'none';
+
+        document.getElementById('resumeBtn').addEventListener('click', () => {
+          window.location.href = `task.html?idx=${answered}`;
+        });
+
+        document.getElementById('newBtn').addEventListener('click', () => {
+          localStorage.removeItem('patientStudySession');
+          document.getElementById('resumeSection').style.display = 'none';
+          document.getElementById('startBtn').style.display      = '';
+        });
+      } catch (e) { /* corrupt storage — ignore */ }
+    })();
+
     document.getElementById('startBtn').addEventListener('click', async () => {
       const btn    = document.getElementById('startBtn');
       const errMsg = document.getElementById('errMsg');

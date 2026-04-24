@@ -111,6 +111,47 @@
       });
     }
 
+    // ── Send partial answers when user leaves the page ──────────────────────
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyxVjhisvTJ0Hv1R_hMZJV0E9BDHjN3LBH1TVcgsOXJFDHArAubUjiKz4KlQ-QmNT-i/exec";
+
+    function sendPartialToServer() {
+      try {
+        const raw = localStorage.getItem('patientStudySession');
+        if (!raw) return;
+        const sess = JSON.parse(raw);
+        if (!sess.answers || sess.answers.length === 0 || sess.completed) return;
+
+        const payload = JSON.stringify({
+          session_id: sess.id,
+          partial:    true,
+          correct:    sess.answers.filter(a => a.correct).length,
+          total:      sess.answers.length,
+          elapsed_ms: sess.answers.reduce((s, a) => s + (a.elapsedMs || 0), 0),
+          answers:    sess.answers.map(a => ({
+            videoIndex:         a.videoIndex,
+            trueClassId:        a.trueClassId,
+            trueClassName:      a.trueClassName,
+            predictedClassId:   a.predictedClassId,
+            predictedClassName: a.predictedClassName,
+            correct:            a.correct,
+            elapsedMs:          a.elapsedMs || 0,
+          })),
+        });
+
+        // Use sendBeacon so the request survives page unload
+        if (navigator.sendBeacon) {
+          navigator.sendBeacon(APPS_SCRIPT_URL, new Blob([payload], { type: 'application/json' }));
+        } else {
+          fetch(APPS_SCRIPT_URL, { method: 'POST', body: payload, keepalive: true }).catch(() => {});
+        }
+      } catch (e) {}
+    }
+
+    // Fire when user hides / closes the tab
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') sendPartialToServer();
+    });
+
     function escHtml(str) {
       return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
