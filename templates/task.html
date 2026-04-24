@@ -61,34 +61,29 @@
     let startTime    = Date.now();
     let answered     = false;
 
-    function submitAnswer(classId, className) {
+    async function submitAnswer(classId, className) {
       if (answered) return;
       answered = true;
 
-      // Disable all buttons and highlight chosen
       document.querySelectorAll('.class-btn').forEach(b => b.disabled = true);
       const chosen = document.querySelector(`[data-class="${classId}"]`);
       chosen.classList.add('selected');
 
       const elapsed = Date.now() - startTime;
-      const nextIdx = IDX + 1;
-      const nextUrl = nextIdx >= TOTAL ? `/done/${SESSION_ID}` : `/task/${SESSION_ID}/${nextIdx}`;
 
-      // keepalive ensures the request is sent even after the page navigates away
-      fetch('/answer', {
-        method:    'POST',
-        headers:   { 'Content-Type': 'application/json' },
-        keepalive: true,
-        body:      JSON.stringify({
+      const resp = await fetch('/answer', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
           session_id:      SESSION_ID,
           idx:             IDX,
           predicted_class: classId,
           elapsed_ms:      elapsed,
         }),
-      }).catch(() => {}); // server errors must not block navigation
+      });
 
-      // Navigate immediately — don't wait for the server response
-      window.location.href = nextUrl;
+      const data = await resp.json();
+      window.location.href = data.done ? `/done/${SESSION_ID}` : `/task/${SESSION_ID}/${data.next}`;
     }
 
     // Auto-play on page load (some browsers block, so we also have controls)
