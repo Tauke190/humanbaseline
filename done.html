@@ -26,7 +26,7 @@
       document.getElementById('scoreText').innerHTML =
         `You got <strong>${correct} out of ${total}</strong> correct.`;
 
-      const elapsedMs = sess.answers.reduce((s, a) => s + (a.elapsed_ms || 0), 0);
+      const elapsedMs = sess.answers.reduce((s, a) => s + (a.elapsedMs || a.elapsed_ms || 0), 0);
 
       fetch(APPS_SCRIPT_URL, {
         method: "POST",
@@ -35,7 +35,15 @@
           correct:    correct,
           total:      total,
           elapsed_ms: elapsedMs,
-          answers:    sess.answers
+          answers:    sess.answers.map(a => ({
+            videoIndex:        a.videoIndex,
+            trueClassId:       a.trueClassId,
+            trueClassName:     a.trueClassName,
+            predictedClassId:  a.predictedClassId,
+            predictedClassName: a.predictedClassName,
+            correct:           a.correct,
+            elapsedMs:         a.elapsedMs || a.elapsed_ms || 0
+          }))
         })
       }).catch(() => {});  // silently ignore network errors
     }
