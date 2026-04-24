@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Care Study</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body class="task-page">
+
+  <header class="task-header">
+    <span class="progress-label" id="progressLabel">Video 1 of 4</span>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+    </div>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </header>
+
+  <div class="task-layout">
+
+    <section class="video-panel">
+      <video id="player" controls autoplay loop playsinline></video>
+      <p class="video-hint">Replay as needed, then select the action →</p>
+    </section>
+
+    <section class="buttons-panel">
+      <h3 class="panel-title">What action is shown?</h3>
+      <div class="class-buttons" id="btnList"></div>
+    </section>
+
+  </div>
+
+  <script>
+    // ── Read session from localStorage ──────────────────────────────────────
+    const params  = new URLSearchParams(window.location.search);
+    const idx     = parseInt(params.get('idx') || '0', 10);
+    const sessRaw = localStorage.getItem('patientStudySession');
+
+    if (!sessRaw) {
+      window.location.href = 'index.html';
+    } else {
+      const sess  = JSON.parse(sessRaw);
+      const total = sess.videos.length;
+
+      if (idx >= total) {
+        window.location.href = 'done.html';
+      } else {
+        init(sess, idx, total);
+      }
+    }
+
+    // ── Initialise the task page ─────────────────────────────────────────────
+    function init(sess, idx, total) {
+      // Progress bar
+      const pct = Math.round((idx / total) * 100);
+      document.getElementById('progressLabel').textContent = `Video ${idx + 1} of ${total}`;
+      document.getElementById('progressFill').style.width  = pct + '%';
+      document.getElementById('progressPct').textContent   = pct + '%';
+      document.title = `Video ${idx + 1} of ${total} — Patient Care Study`;
+
+      // Video
+      const video  = sess.videos[idx];
+      const player = document.getElementById('player');
+      player.src   = video.path;
+      player.play().catch(() => {});
+
+      // Class buttons
+      const btnList  = document.getElementById('btnList');
+      let   answered = false;
+      const startMs  = Date.now();
+
+      sess.classes.forEach((cls, i) => {
+        const btn = document.createElement('button');
+        btn.className        = 'class-btn';
+        btn.dataset.classId  = cls.id;
+        btn.innerHTML =
+          `<span class="btn-num">${i + 1}</span>` +
+          `<span class="btn-name">${escHtml(cls.name)}</span>`;
+
+        btn.addEventListener('click', () => {
+          if (answered) return;
+          answered = true;
+
+          // Disable all buttons, highlight chosen
+          document.querySelectorAll('.class-btn').forEach(b => b.disabled = true);
+          btn.classList.add('selected');
+
+          // Save answer
+          sess.answers.push({
+            videoIndex:       idx,
+            trueClassId:      video.class_id,
+            trueClassName:    video.class_name,
+            predictedClassId: cls.id,
+            predictedClassName: cls.name,
+            correct:          video.class_id === cls.id,
+            elapsedMs:        Date.now() - startMs,
+            answeredAt:       Date.now(),
+          });
+
+          const nextIdx = idx + 1;
+          if (nextIdx >= total) {
+            sess.completed   = true;
+            sess.completedAt = Date.now();
+          }
+
+          localStorage.setItem('patientStudySession', JSON.stringify(sess));
+          window.location.href = nextIdx >= total ? 'done.html' : `task.html?idx=${nextIdx}`;
+        });
+
+        btnList.appendChild(btn);
+      });
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video {{ idx + 1 }} of {{ total }} — Patient Care Study</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="task-page">
+
+  <!-- Top bar: progress -->
+  <header class="task-header">
+    <span class="progress-label">Video {{ idx + 1 }} of {{ total }}</span>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: {{ ((idx) / total * 100) | round }}%"></div>
+    </div>
+    <span class="progress-pct">{{ ((idx) / total * 100) | round | int }}%</span>
+  </header>
+
+  <!-- Main area: video + buttons -->
+  <div class="task-layout">
+
+    <!-- Left: video player -->
+    <section class="video-panel">
+      <video
+        id="player"
+        src="/video/{{ session_id }}/{{ idx }}"
+        controls
+        autoplay
+        loop
+        playsinline
+      ></video>
+      <p class="video-hint">Replay as needed, then select the action →</p>
+    </section>
+
+    <!-- Right: class buttons -->
+    <section class="buttons-panel">
+      <h3 class="panel-title">What action is shown?</h3>
+      <div id="feedback" class="feedback hidden"></div>
+
+      <div class="class-buttons" id="btnList">
+        {% for cid, cname in classes %}
+        <button
+          class="class-btn"
+          data-class="{{ cid }}"
+          data-name="{{ cname | e }}"
+          onclick="submitAnswer({{ cid }}, this.dataset.name)"
+        >
+          <span class="btn-num">{{ loop.index }}</span>
+          <span class="btn-name">{{ cname }}</span>
+        </button>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const SESSION_ID = {{ session_id | tojson }};
+    const IDX        = {{ idx }};
+    const TOTAL      = {{ total }};
+    let startTime    = Date.now();
+    let answered     = false;
+
+    function submitAnswer(classId, className) {
+      if (answered) return;
+      answered = true;
+
+      // Disable all buttons and highlight chosen
+      document.querySelectorAll('.class-btn').forEach(b => b.disabled = true);
+      const chosen = document.querySelector(`[data-class="${classId}"]`);
+      chosen.classList.add('selected');
+
+      const elapsed = Date.now() - startTime;
+
+      fetch('/answer', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({
+          session_id:      SESSION_ID,
+          idx:             IDX,
+          predicted_class: classId,
+          elapsed_ms:      elapsed,
+        }),
+      })
+      .then(r => {
+        if (!r.ok) throw new Error('bad response');
+        return r.json();
+      })
+      .then(data => {
+        window.location.href = data.done ? `/done/${SESSION_ID}` : `/task/${SESSION_ID}/${data.next}`;
+      })
+      .catch(() => {
+        const next = IDX + 1;
+        window.location.href = next >= TOTAL ? `/done/${SESSION_ID}` : `/task/${SESSION_ID}/${next}`;
+      });
+    }
+
+    // Auto-play on page load (some browsers block, so we also have controls)
+    document.getElementById('player').play().catch(() => {});
+  </script>
+</body>
+</html>

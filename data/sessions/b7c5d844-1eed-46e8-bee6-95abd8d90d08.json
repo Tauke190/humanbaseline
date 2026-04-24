@@ -1,0 +1,70 @@
+{
+  "session_id": "b7c5d844-1eed-46e8-bee6-95abd8d90d08",
+  "started_at": 1777001009.945383,
+  "videos": [
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/21_headache_distress_real/21_010.mp4",
+      "class_id": 20,
+      "class_name": "Headache distress"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/17_patient_chest_distress_real/17_018.mp4",
+      "class_id": 16,
+      "class_name": "Patient chest distress"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/18_scratching_body_real/18_004.mp4",
+      "class_id": 17,
+      "class_name": "Scratching body"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/19_using_phone_tablet_real/19_007.mp4",
+      "class_id": 18,
+      "class_name": "Using phone tablet"
+    }
+  ],
+  "answers": [
+    {
+      "video_index": 0,
+      "true_class_id": 20,
+      "true_class_name": "Headache distress",
+      "predicted_class_id": 20,
+      "predicted_class_name": "Headache distress",
+      "correct": true,
+      "elapsed_ms": 7786,
+      "answered_at": 1777001018.076512
+    },
+    {
+      "video_index": 1,
+      "true_class_id": 16,
+      "true_class_name": "Patient chest distress",
+      "predicted_class_id": 16,
+      "predicted_class_name": "Patient chest distress",
+      "correct": true,
+      "elapsed_ms": 80402,
+      "answered_at": 1777001098.8627672
+    },
+    {
+      "video_index": 2,
+      "true_class_id": 17,
+      "true_class_name": "Scratching body",
+      "predicted_class_id": 17,
+      "predicted_class_name": "Scratching body",
+      "correct": true,
+      "elapsed_ms": 2335,
+      "answered_at": 1777001101.7071009
+    },
+    {
+      "video_index": 3,
+      "true_class_id": 18,
+      "true_class_name": "Using phone tablet",
+      "predicted_class_id": 18,
+      "predicted_class_name": "Using phone tablet",
+      "correct": true,
+      "elapsed_ms": 13156,
+      "answered_at": 1777001115.2050989
+    }
+  ],
+  "completed": true,
+  "completed_at": 1777001115.2051005
+}

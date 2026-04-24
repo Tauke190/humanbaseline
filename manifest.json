@@ -1,0 +1,532 @@
+{
+  "classes": [
+    {
+      "id": 0,
+      "name": "Lying on bed"
+    },
+    {
+      "id": 1,
+      "name": "Standing up"
+    },
+    {
+      "id": 2,
+      "name": "Falling to the ground"
+    },
+    {
+      "id": 3,
+      "name": "Sitting up from bed"
+    },
+    {
+      "id": 4,
+      "name": "Coughing"
+    },
+    {
+      "id": 5,
+      "name": "Eating food / having meal"
+    },
+    {
+      "id": 6,
+      "name": "Taking medicine"
+    },
+    {
+      "id": 7,
+      "name": "Walking with walker"
+    },
+    {
+      "id": 10,
+      "name": "Patient involuntary movements"
+    },
+    {
+      "id": 12,
+      "name": "Walking with normal gait"
+    },
+    {
+      "id": 13,
+      "name": "Wheelchair seated"
+    },
+    {
+      "id": 14,
+      "name": "Nausea vomiting"
+    },
+    {
+      "id": 15,
+      "name": "Walking abnormal gait"
+    },
+    {
+      "id": 16,
+      "name": "Having chest distress"
+    },
+    {
+      "id": 17,
+      "name": "Scratching body"
+    },
+    {
+      "id": 18,
+      "name": "Using phone tablet"
+    },
+    {
+      "id": 19,
+      "name": "Bedside self directed exercise"
+    },
+    {
+      "id": 20,
+      "name": "Headache distress"
+    },
+    {
+      "id": 21,
+      "name": "Gesturing hand waving"
+    }
+  ],
+  "videos": [
+    {
+      "path": "static/videos/01_patient_lying_on_bed_real/01_003.mp4",
+      "class_id": 0,
+      "class_name": "Lying on bed"
+    },
+    {
+      "path": "static/videos/01_patient_lying_on_bed_real/01_002.mp4",
+      "class_id": 0,
+      "class_name": "Lying on bed"
+    },
+    {
+      "path": "static/videos/01_patient_lying_on_bed_real/01_006.mp4",
+      "class_id": 0,
+      "class_name": "Lying on bed"
+    },
+    {
+      "path": "static/videos/01_patient_lying_on_bed_real/01_005.mp4",
+      "class_id": 0,
+      "class_name": "Lying on bed"
+    },
+    {
+      "path": "static/videos/01_patient_lying_on_bed_real/01_004.mp4",
+      "class_id": 0,
+      "class_name": "Lying on bed"
+    },
+    {
+      "path": "static/videos/02_standing_up_from_bed_real/02_007.mp4",
+      "class_id": 1,
+      "class_name": "Standing up"
+    },
+    {
+      "path": "static/videos/02_standing_up_from_bed_real/02_015.mp4",
+      "class_id": 1,
+      "class_name": "Standing up"
+    },
+    {
+      "path": "static/videos/02_standing_up_from_bed_real/02_106.mp4",
+      "class_id": 1,
+      "class_name": "Standing up"
+    },
+    {
+      "path": "static/videos/02_standing_up_from_bed_real/02_054.mp4",
+      "class_id": 1,
+      "class_name": "Standing up"
+    },
+    {
+      "path": "static/videos/02_standing_up_from_bed_real/02_155.mp4",
+      "class_id": 1,
+      "class_name": "Standing up"
+    },
+    {
+      "path": "static/videos/03_fall_from_standing_real/03_020.mp4",
+      "class_id": 2,
+      "class_name": "Falling to the ground"
+    },
+    {
+      "path": "static/videos/03_fall_from_standing_real/03_032.mp4",
+      "class_id": 2,
+      "class_name": "Falling to the ground"
+    },
+    {
+      "path": "static/videos/03_fall_from_standing_real/03_030.mp4",
+      "class_id": 2,
+      "class_name": "Falling to the ground"
+    },
+    {
+      "path": "static/videos/03_fall_from_standing_real/03_022.mp4",
+      "class_id": 2,
+      "class_name": "Falling to the ground"
+    },
+    {
+      "path": "static/videos/03_fall_from_standing_real/03_040.mp4",
+      "class_id": 2,
+      "class_name": "Falling to the ground"
+    },
+    {
+      "path": "static/videos/04_patient_sitting_up_from_bed_real/04_012.mp4",
+      "class_id": 3,
+      "class_name": "Sitting up from bed"
+    },
+    {
+      "path": "static/videos/04_patient_sitting_up_from_bed_real/04_010.mp4",
+      "class_id": 3,
+      "class_name": "Sitting up from bed"
+    },
+    {
+      "path": "static/videos/04_patient_sitting_up_from_bed_real/04_009.mp4",
+      "class_id": 3,
+      "class_name": "Sitting up from bed"
+    },
+    {
+      "path": "static/videos/04_patient_sitting_up_from_bed_real/04_006.mp4",
+      "class_id": 3,
+      "class_name": "Sitting up from bed"
+    },
+    {
+      "path": "static/videos/04_patient_sitting_up_from_bed_real/04_011.mp4",
+      "class_id": 3,
+      "class_name": "Sitting up from bed"
+    },
+    {
+      "path": "static/videos/05_persistent_coughing_real/05_008.mp4",
+      "class_id": 4,
+      "class_name": "Coughing"
+    },
+    {
+      "path": "static/videos/05_persistent_coughing_real/05_005.mp4",
+      "class_id": 4,
+      "class_name": "Coughing"
+    },
+    {
+      "path": "static/videos/05_persistent_coughing_real/05_003.mp4",
+      "class_id": 4,
+      "class_name": "Coughing"
+    },
+    {
+      "path": "static/videos/05_persistent_coughing_real/05_007.mp4",
+      "class_id": 4,
+      "class_name": "Coughing"
+    },
+    {
+      "path": "static/videos/05_persistent_coughing_real/05_006.mp4",
+      "class_id": 4,
+      "class_name": "Coughing"
+    },
+    {
+      "path": "static/videos/06_eating_food_with_tray_real/06_136.mp4",
+      "class_id": 5,
+      "class_name": "Eating food / having meal"
+    },
+    {
+      "path": "static/videos/06_eating_food_with_tray_real/06_144.mp4",
+      "class_id": 5,
+      "class_name": "Eating food / having meal"
+    },
+    {
+      "path": "static/videos/06_eating_food_with_tray_real/06_147.mp4",
+      "class_id": 5,
+      "class_name": "Eating food / having meal"
+    },
+    {
+      "path": "static/videos/06_eating_food_with_tray_real/06_132.mp4",
+      "class_id": 5,
+      "class_name": "Eating food / having meal"
+    },
+    {
+      "path": "static/videos/06_eating_food_with_tray_real/06_142.mp4",
+      "class_id": 5,
+      "class_name": "Eating food / having meal"
+    },
+    {
+      "path": "static/videos/07_taking_medicine_real/07_172.mp4",
+      "class_id": 6,
+      "class_name": "Taking medicine"
+    },
+    {
+      "path": "static/videos/07_taking_medicine_real/07_153.mp4",
+      "class_id": 6,
+      "class_name": "Taking medicine"
+    },
+    {
+      "path": "static/videos/07_taking_medicine_real/07_138.mp4",
+      "class_id": 6,
+      "class_name": "Taking medicine"
+    },
+    {
+      "path": "static/videos/07_taking_medicine_real/07_147.mp4",
+      "class_id": 6,
+      "class_name": "Taking medicine"
+    },
+    {
+      "path": "static/videos/07_taking_medicine_real/07_168.mp4",
+      "class_id": 6,
+      "class_name": "Taking medicine"
+    },
+    {
+      "path": "static/videos/08_walking_with_walker_real/08_042.mp4",
+      "class_id": 7,
+      "class_name": "Walking with walker"
+    },
+    {
+      "path": "static/videos/08_walking_with_walker_real/08_069.mp4",
+      "class_id": 7,
+      "class_name": "Walking with walker"
+    },
+    {
+      "path": "static/videos/08_walking_with_walker_real/08_014.mp4",
+      "class_id": 7,
+      "class_name": "Walking with walker"
+    },
+    {
+      "path": "static/videos/08_walking_with_walker_real/08_001.mp4",
+      "class_id": 7,
+      "class_name": "Walking with walker"
+    },
+    {
+      "path": "static/videos/08_walking_with_walker_real/08_048.mp4",
+      "class_id": 7,
+      "class_name": "Walking with walker"
+    },
+    {
+      "path": "static/videos/11_patient_involuntary_movements_real/11_035.mp4",
+      "class_id": 10,
+      "class_name": "Patient involuntary movements"
+    },
+    {
+      "path": "static/videos/11_patient_involuntary_movements_real/11_036.mp4",
+      "class_id": 10,
+      "class_name": "Patient involuntary movements"
+    },
+    {
+      "path": "static/videos/11_patient_involuntary_movements_real/11_015.mp4",
+      "class_id": 10,
+      "class_name": "Patient involuntary movements"
+    },
+    {
+      "path": "static/videos/11_patient_involuntary_movements_real/11_001.mp4",
+      "class_id": 10,
+      "class_name": "Patient involuntary movements"
+    },
+    {
+      "path": "static/videos/11_patient_involuntary_movements_real/11_029.mp4",
+      "class_id": 10,
+      "class_name": "Patient involuntary movements"
+    },
+    {
+      "path": "static/videos/13_walking_with_normal_gait_real/13_115.mp4",
+      "class_id": 12,
+      "class_name": "Walking with normal gait"
+    },
+    {
+      "path": "static/videos/13_walking_with_normal_gait_real/13_104.mp4",
+      "class_id": 12,
+      "class_name": "Walking with normal gait"
+    },
+    {
+      "path": "static/videos/13_walking_with_normal_gait_real/13_080.mp4",
+      "class_id": 12,
+      "class_name": "Walking with normal gait"
+    },
+    {
+      "path": "static/videos/13_walking_with_normal_gait_real/13_151.mp4",
+      "class_id": 12,
+      "class_name": "Walking with normal gait"
+    },
+    {
+      "path": "static/videos/13_walking_with_normal_gait_real/13_092.mp4",
+      "class_id": 12,
+      "class_name": "Walking with normal gait"
+    },
+    {
+      "path": "static/videos/14_wheelchair_seated_real/14_005.mp4",
+      "class_id": 13,
+      "class_name": "Wheelchair seated"
+    },
+    {
+      "path": "static/videos/14_wheelchair_seated_real/14_011.mp4",
+      "class_id": 13,
+      "class_name": "Wheelchair seated"
+    },
+    {
+      "path": "static/videos/14_wheelchair_seated_real/14_002.mp4",
+      "class_id": 13,
+      "class_name": "Wheelchair seated"
+    },
+    {
+      "path": "static/videos/14_wheelchair_seated_real/14_004.mp4",
+      "class_id": 13,
+      "class_name": "Wheelchair seated"
+    },
+    {
+      "path": "static/videos/14_wheelchair_seated_real/14_003.mp4",
+      "class_id": 13,
+      "class_name": "Wheelchair seated"
+    },
+    {
+      "path": "static/videos/15_nausea_vomiting_real/15_028.mp4",
+      "class_id": 14,
+      "class_name": "Nausea vomiting"
+    },
+    {
+      "path": "static/videos/15_nausea_vomiting_real/15_012.mp4",
+      "class_id": 14,
+      "class_name": "Nausea vomiting"
+    },
+    {
+      "path": "static/videos/15_nausea_vomiting_real/15_026.mp4",
+      "class_id": 14,
+      "class_name": "Nausea vomiting"
+    },
+    {
+      "path": "static/videos/15_nausea_vomiting_real/15_007.mp4",
+      "class_id": 14,
+      "class_name": "Nausea vomiting"
+    },
+    {
+      "path": "static/videos/15_nausea_vomiting_real/15_008.mp4",
+      "class_id": 14,
+      "class_name": "Nausea vomiting"
+    },
+    {
+      "path": "static/videos/16_walking_abnormal_gait_real/16_007.mp4",
+      "class_id": 15,
+      "class_name": "Walking abnormal gait"
+    },
+    {
+      "path": "static/videos/16_walking_abnormal_gait_real/16_023.mp4",
+      "class_id": 15,
+      "class_name": "Walking abnormal gait"
+    },
+    {
+      "path": "static/videos/16_walking_abnormal_gait_real/16_024.mp4",
+      "class_id": 15,
+      "class_name": "Walking abnormal gait"
+    },
+    {
+      "path": "static/videos/16_walking_abnormal_gait_real/16_008.mp4",
+      "class_id": 15,
+      "class_name": "Walking abnormal gait"
+    },
+    {
+      "path": "static/videos/16_walking_abnormal_gait_real/16_021.mp4",
+      "class_id": 15,
+      "class_name": "Walking abnormal gait"
+    },
+    {
+      "path": "static/videos/17_patient_chest_distress_real/17_027.mp4",
+      "class_id": 16,
+      "class_name": "Having chest distress"
+    },
+    {
+      "path": "static/videos/17_patient_chest_distress_real/17_015.mp4",
+      "class_id": 16,
+      "class_name": "Having chest distress"
+    },
+    {
+      "path": "static/videos/17_patient_chest_distress_real/17_031.mp4",
+      "class_id": 16,
+      "class_name": "Having chest distress"
+    },
+    {
+      "path": "static/videos/17_patient_chest_distress_real/17_030.mp4",
+      "class_id": 16,
+      "class_name": "Having chest distress"
+    },
+    {
+      "path": "static/videos/17_patient_chest_distress_real/17_026.mp4",
+      "class_id": 16,
+      "class_name": "Having chest distress"
+    },
+    {
+      "path": "static/videos/18_scratching_body_real/18_006.mp4",
+      "class_id": 17,
+      "class_name": "Scratching body"
+    },
+    {
+      "path": "static/videos/18_scratching_body_real/18_003.mp4",
+      "class_id": 17,
+      "class_name": "Scratching body"
+    },
+    {
+      "path": "static/videos/18_scratching_body_real/18_005.mp4",
+      "class_id": 17,
+      "class_name": "Scratching body"
+    },
+    {
+      "path": "static/videos/18_scratching_body_real/18_004.mp4",
+      "class_id": 17,
+      "class_name": "Scratching body"
+    },
+    {
+      "path": "static/videos/18_scratching_body_real/18_001.mp4",
+      "class_id": 17,
+      "class_name": "Scratching body"
+    },
+    {
+      "path": "static/videos/19_using_phone_tablet_real/19_002.mp4",
+      "class_id": 18,
+      "class_name": "Using phone tablet"
+    },
+    {
+      "path": "static/videos/19_using_phone_tablet_real/19_010.mp4",
+      "class_id": 18,
+      "class_name": "Using phone tablet"
+    },
+    {
+      "path": "static/videos/19_using_phone_tablet_real/19_011.mp4",
+      "class_id": 18,
+      "class_name": "Using phone tablet"
+    },
+    {
+      "path": "static/videos/19_using_phone_tablet_real/19_005.mp4",
+      "class_id": 18,
+      "class_name": "Using phone tablet"
+    },
+    {
+      "path": "static/videos/19_using_phone_tablet_real/19_001.mp4",
+      "class_id": 18,
+      "class_name": "Using phone tablet"
+    },
+    {
+      "path": "static/videos/21_headache_distress_real/21_028.mp4",
+      "class_id": 20,
+      "class_name": "Headache distress"
+    },
+    {
+      "path": "static/videos/21_headache_distress_real/21_032.mp4",
+      "class_id": 20,
+      "class_name": "Headache distress"
+    },
+    {
+      "path": "static/videos/21_headache_distress_real/21_012.mp4",
+      "class_id": 20,
+      "class_name": "Headache distress"
+    },
+    {
+      "path": "static/videos/21_headache_distress_real/21_025.mp4",
+      "class_id": 20,
+      "class_name": "Headache distress"
+    },
+    {
+      "path": "static/videos/21_headache_distress_real/21_016.mp4",
+      "class_id": 20,
+      "class_name": "Headache distress"
+    },
+    {
+      "path": "static/videos/22_gesturing_hand_waving_real/22_015.mp4",
+      "class_id": 21,
+      "class_name": "Gesturing hand waving"
+    },
+    {
+      "path": "static/videos/22_gesturing_hand_waving_real/22_029.mp4",
+      "class_id": 21,
+      "class_name": "Gesturing hand waving"
+    },
+    {
+      "path": "static/videos/22_gesturing_hand_waving_real/22_028.mp4",
+      "class_id": 21,
+      "class_name": "Gesturing hand waving"
+    },
+    {
+      "path": "static/videos/22_gesturing_hand_waving_real/22_003.mp4",
+      "class_id": 21,
+      "class_name": "Gesturing hand waving"
+    },
+    {
+      "path": "static/videos/22_gesturing_hand_waving_real/22_025.mp4",
+      "class_id": 21,
+      "class_name": "Gesturing hand waving"
+    }
+  ]
+}

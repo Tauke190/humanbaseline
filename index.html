@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Care Action Study</title>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+<body class="page-centered">
+  <div class="card">
+    <div class="card-icon">🏥</div>
+    <h1>Patient Care Action Study</h1>
+    <p class="subtitle">Help us evaluate AI-based patient monitoring</p>
+
+    <div class="instructions">
+      <h2>Instructions</h2>
+      <ol>
+        <li>You will watch <strong>4 short videos</strong> of patient actions</li>
+        <li>For each video, select the matching action from <strong>20 choices</strong></li>
+        <li>Watch each video as many times as needed before answering</li>
+        <li>Your answers auto-save — you can return if you close the tab</li>
+        <li>There are no trick questions — just your best judgment</li>
+      </ol>
+    </div>
+
+    <div class="note">
+      Your results are stored in your browser. You can download them at the end.
+    </div>
+
+    <button class="btn-primary" id="startBtn">Start Study →</button>
+    <p id="errMsg" style="color:#e11d48;margin-top:0.75rem;font-size:0.9rem;display:none"></p>
+  </div>
+
+  <script>
+    document.getElementById('startBtn').addEventListener('click', async () => {
+      const btn    = document.getElementById('startBtn');
+      const errMsg = document.getElementById('errMsg');
+      btn.disabled    = true;
+      btn.textContent = 'Loading…';
+      errMsg.style.display = 'none';
+
+      try {
+        const resp = await fetch('manifest.json');
+        if (!resp.ok) throw new Error('manifest not found');
+        const manifest = await resp.json();
+
+        const session = buildSession(manifest);
+        localStorage.setItem('patientStudySession', JSON.stringify(session));
+        window.location.href = 'task.html?idx=0';
+      } catch (e) {
+        btn.disabled    = false;
+        btn.textContent = 'Start Study →';
+        errMsg.textContent  = 'Could not load study data. Please refresh and try again.';
+        errMsg.style.display = 'block';
+      }
+    });
+
+    function buildSession(manifest) {
+      // Group by class_id
+      const byClass = {};
+      for (const v of manifest.videos) {
+        (byClass[v.class_id] = byClass[v.class_id] || []).push(v);
+      }
+
+      // Shuffle class IDs, pick 4, pick 1 random video per class
+      const classIds = shuffle(Object.keys(byClass).map(Number));
+      const videos   = shuffle(
+        classIds.slice(0, 4).map(cid => {
+          const pool = byClass[cid];
+          return pool[Math.floor(Math.random() * pool.length)];
+        })
+      );
+
+      return {
+        id:        (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36)),
+        startedAt: Date.now(),
+        videos,
+        answers:   [],
+        classes:   manifest.classes,
+        completed: false,
+      };
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+  </script>
+</body>
+</html>

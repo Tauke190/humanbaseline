@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You — Patient Care Study</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="page-centered">
+  <div class="card card-done">
+    <div class="done-icon">✓</div>
+    <h1>Thank You!</h1>
+    {% if total %}
+    <p>You got <strong>{{ correct }} out of {{ total }}</strong> correct.</p>
+    {% endif %}
+    <p>Your responses have been recorded and will contribute to our research on automatic patient care monitoring.</p>
+    <p class="muted">You may now safely close this window.</p>
+  </div>
+</body>
+</html>

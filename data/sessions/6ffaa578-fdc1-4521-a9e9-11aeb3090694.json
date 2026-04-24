@@ -1,0 +1,28 @@
+{
+  "session_id": "6ffaa578-fdc1-4521-a9e9-11aeb3090694",
+  "started_at": 1777000461.0540736,
+  "videos": [
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/21_headache_distress_real/21_009.mp4",
+      "class_id": 20,
+      "class_name": "Headache distress"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/01_patient_lying_on_bed_real/01_008.mp4",
+      "class_id": 0,
+      "class_name": "Patient lying on bed"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/22_gesturing_hand_waving_real/22_036.mp4",
+      "class_id": 21,
+      "class_name": "Gesturing hand waving"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/23_covering_face_with_hands_real/23_007.mp4",
+      "class_id": 22,
+      "class_name": "Covering face with hands"
+    }
+  ],
+  "answers": [],
+  "completed": false
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Care Action Study</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="page-centered">
+  <div class="card">
+    <div class="card-icon">🏥</div>
+    <h1>Patient Care Action Study</h1>
+    <p class="subtitle">Action Classification — Human Baseline</p>
+
+    <div class="instructions">
+      <h2>Instructions</h2>
+      <ol>
+        <li>You will watch <strong>{{ num_videos }} short hospital videos</strong>, one at a time. Some of the videos are simulated/acted</li>
+        <li>After watching each video, <strong>select the action</strong> you see from the list of {{ num_classes }} options on the right.</li>
+        <li>You may <strong>replay the video</strong> as many times as needed before answering.</li>
+        <li>Your responses are <strong>saved automatically</strong> after each video — closing the browser mid-session will not lose your answers.</li>
+        <li>Choose the <strong>best matching</strong> action — trust your first impression.</li>
+      </ol>
+    </div>
+
+    <div class="note">
+      <strong>Note:</strong> This study is for research purposes only. There are no trick questions and no personally identifying information is collected.
+    </div>
+
+    <form method="POST" action="/start">
+      <button type="submit" class="btn-primary">Start Study &rarr;</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "session_id": "718d3df1-dc94-4848-98a1-d2ee46f18eb5",
+  "started_at": 1777000842.0275888,
+  "videos": [
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/14_wheelchair_seated_real/14_016.mp4",
+      "class_id": 13,
+      "class_name": "Wheelchair seated"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/15_nausea_vomiting_real/15_014.mp4",
+      "class_id": 14,
+      "class_name": "Nausea vomiting"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/13_walking_with_normal_gait_real/13_023.mp4",
+      "class_id": 12,
+      "class_name": "Walking with normal gait"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/16_walking_abnormal_gait_real/16_010.mp4",
+      "class_id": 15,
+      "class_name": "Walking abnormal gait"
+    }
+  ],
+  "answers": [],
+  "completed": false
+}
