@@ -320,12 +320,15 @@ def answer():
     if next_idx >= len(sess["videos"]):
         sess["completed"]    = True
         sess["completed_at"] = time.time()
-        _save_sess(sess)
-        _upsert_results(sess)
-        return jsonify({"done": True, "sid": sid})
 
     _save_sess(sess)
-    _upsert_results(sess)
+    try:
+        _upsert_results(sess)
+    except Exception as exc:
+        app.logger.error("_upsert_results failed: %s", exc)
+
+    if sess.get("completed"):
+        return jsonify({"done": True, "sid": sid})
     return jsonify({"done": False, "next": next_idx})
 
 

@@ -71,28 +71,24 @@
       chosen.classList.add('selected');
 
       const elapsed = Date.now() - startTime;
+      const nextIdx = IDX + 1;
+      const nextUrl = nextIdx >= TOTAL ? `/done/${SESSION_ID}` : `/task/${SESSION_ID}/${nextIdx}`;
 
+      // keepalive ensures the request is sent even after the page navigates away
       fetch('/answer', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({
+        method:    'POST',
+        headers:   { 'Content-Type': 'application/json' },
+        keepalive: true,
+        body:      JSON.stringify({
           session_id:      SESSION_ID,
           idx:             IDX,
           predicted_class: classId,
           elapsed_ms:      elapsed,
         }),
-      })
-      .then(r => {
-        if (!r.ok) throw new Error('bad response');
-        return r.json();
-      })
-      .then(data => {
-        window.location.href = data.done ? `/done/${SESSION_ID}` : `/task/${SESSION_ID}/${data.next}`;
-      })
-      .catch(() => {
-        const next = IDX + 1;
-        window.location.href = next >= TOTAL ? `/done/${SESSION_ID}` : `/task/${SESSION_ID}/${next}`;
-      });
+      }).catch(() => {}); // server errors must not block navigation
+
+      // Navigate immediately — don't wait for the server response
+      window.location.href = nextUrl;
     }
 
     // Auto-play on page load (some browsers block, so we also have controls)
