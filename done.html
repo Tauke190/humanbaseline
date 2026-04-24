@@ -12,13 +12,12 @@
     <h1>Thank You!</h1>
     <p id="scoreText"></p>
     <p>Your responses will contribute to our research on automatic patient care monitoring.</p>
-    <button class="btn-primary" id="downloadBtn" style="margin-top:1.5rem">
-      Download My Results
-    </button>
     <p class="muted" style="margin-top:0.75rem">You may now safely close this window.</p>
   </div>
 
   <script>
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyxVjhisvTJ0Hv1R_hMZJV0E9BDHjN3LBH1TVcgsOXJFDHArAubUjiKz4KlQ-QmNT-i/exec";
+
     const sess = JSON.parse(localStorage.getItem('patientStudySession') || 'null');
 
     if (sess && sess.answers && sess.answers.length > 0) {
@@ -26,18 +25,20 @@
       const total   = sess.answers.length;
       document.getElementById('scoreText').innerHTML =
         `You got <strong>${correct} out of ${total}</strong> correct.`;
-    }
 
-    document.getElementById('downloadBtn').addEventListener('click', () => {
-      if (!sess) { alert('No session data found.'); return; }
-      const blob = new Blob([JSON.stringify(sess, null, 2)], { type: 'application/json' });
-      const url  = URL.createObjectURL(blob);
-      const a    = document.createElement('a');
-      a.href     = url;
-      a.download = `patient-study-${sess.id || 'results'}.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-    });
+      const elapsedMs = sess.answers.reduce((s, a) => s + (a.elapsed_ms || 0), 0);
+
+      fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          session_id: sess.id,
+          correct:    correct,
+          total:      total,
+          elapsed_ms: elapsedMs,
+          answers:    sess.answers
+        })
+      }).catch(() => {});  // silently ignore network errors
+    }
   </script>
 </body>
 </html>
