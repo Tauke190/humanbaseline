@@ -15,6 +15,7 @@ import csv
 import json
 import os
 import random
+import threading
 import time
 import uuid
 from pathlib import Path
@@ -27,6 +28,8 @@ from flask import (
 # ---------------------------------------------------------------------------
 # Config
 # ---------------------------------------------------------------------------
+
+SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyvCWw8ueNBbi5GwrAxXpDsmhOiID2QCY3MeB7CQBxlSkPQj1jrdyCYugxrMpp1qz02/exec"
 
 BASE_DIR   = Path(__file__).parent
 DATA_DIR   = BASE_DIR / "data"
@@ -182,7 +185,7 @@ def _append_answer(sess: dict, idx: int, predicted: int, elapsed_ms):
         writer = csv.DictWriter(f, fieldnames=ANSWERS_FIELDS)
         if write_header:
             writer.writeheader()
-        writer.writerow({
+        row = {
             "session_id":           sess["session_id"],
             "started_at":           sess.get("started_at", ""),
             "video_idx":            idx,
@@ -194,7 +197,21 @@ def _append_answer(sess: dict, idx: int, predicted: int, elapsed_ms):
             "correct":              video["class_id"] == predicted,
             "elapsed_ms":           elapsed_ms,
             "answered_at":          time.time(),
-        })
+        }
+        writer.writerow(row)
+    _send_to_sheets(row)
+
+
+def _send_to_sheets(row: dict):
+    """Fire-and-forget POST to Google Sheets Apps Script webhook."""
+    def _post():
+        try:
+            import requests
+            resp = requests.post(SHEETS_WEBHOOK_URL, json=row, timeout=10)
+            app.logger.info("Sheets response: %s %s", resp.status_code, resp.text[:200])
+        except Exception as exc:
+            app.logger.warning("Google Sheets sync failed: %s", exc)
+    threading.Thread(target=_post, daemon=True).start()
 
 
 # ---------------------------------------------------------------------------
