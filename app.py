@@ -29,7 +29,7 @@ from flask import (
 # Config
 # ---------------------------------------------------------------------------
 
-SHEETS_WEBHOOK_URL = "https://script.google.com/macros/library/d/1neMnt-W5I-WeufYclN0OPyDOJ3hdmpSv9x93EdC8nB2JdX8kf7kzU7cP/6"
+SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyvCWw8ueNBbi5GwrAxXpDsmhOiID2QCY3MeB7CQBxlSkPQj1jrdyCYugxrMpp1qz02/exec"
 
 BASE_DIR   = Path(__file__).parent
 DATA_DIR   = BASE_DIR / "data"
@@ -207,8 +207,9 @@ def _send_to_sheets(row: dict):
     def _post():
         try:
             import requests
+            app.logger.info("Sheets SENDING: %s", json.dumps(row))
             resp = requests.post(SHEETS_WEBHOOK_URL, json=row, timeout=10)
-            app.logger.info("Sheets response: %s %s", resp.status_code, resp.text[:200])
+            app.logger.info("Sheets RESPONSE: %s %s", resp.status_code, resp.text[:500])
         except Exception as exc:
             app.logger.warning("Google Sheets sync failed: %s", exc)
     threading.Thread(target=_post, daemon=True).start()

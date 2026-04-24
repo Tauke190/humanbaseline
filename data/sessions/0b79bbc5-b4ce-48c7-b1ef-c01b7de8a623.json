@@ -1,0 +1,74 @@
+{
+  "session_id": "0b79bbc5-b4ce-48c7-b1ef-c01b7de8a623",
+  "started_at": 1777046650.7984154,
+  "videos": [
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/04_patient_sitting_up_from_bed_real/04_006.mp4",
+      "name": "04_006.mp4",
+      "class_id": 3,
+      "class_name": "Sitting up from bed"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/03_fall_from_standing_real/03_022.mp4",
+      "name": "03_022.mp4",
+      "class_id": 2,
+      "class_name": "Falling to the ground"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/06_eating_food_with_tray_real/06_037.mp4",
+      "name": "06_037.mp4",
+      "class_id": 5,
+      "class_name": "Eating food / having meal"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/05_persistent_coughing_real/05_008.mp4",
+      "name": "05_008.mp4",
+      "class_id": 4,
+      "class_name": "Coughing"
+    }
+  ],
+  "answers": [
+    {
+      "video_index": 0,
+      "true_class_id": 3,
+      "true_class_name": "Sitting up from bed",
+      "predicted_class_id": 10,
+      "predicted_class_name": "Patient involuntary movements",
+      "correct": false,
+      "elapsed_ms": 1111,
+      "answered_at": 1777046652.1100004
+    },
+    {
+      "video_index": 1,
+      "true_class_id": 2,
+      "true_class_name": "Falling to the ground",
+      "predicted_class_id": 13,
+      "predicted_class_name": "Wheelchair seated",
+      "correct": false,
+      "elapsed_ms": 1692,
+      "answered_at": 1777046654.065585
+    },
+    {
+      "video_index": 2,
+      "true_class_id": 5,
+      "true_class_name": "Eating food / having meal",
+      "predicted_class_id": 13,
+      "predicted_class_name": "Wheelchair seated",
+      "correct": false,
+      "elapsed_ms": 656,
+      "answered_at": 1777046654.8733845
+    },
+    {
+      "video_index": 3,
+      "true_class_id": 4,
+      "true_class_name": "Coughing",
+      "predicted_class_id": 19,
+      "predicted_class_name": "Bedside self directed exercise",
+      "correct": false,
+      "elapsed_ms": 240,
+      "answered_at": 1777046655.256135
+    }
+  ],
+  "completed": true,
+  "completed_at": 1777046655.2561393
+}
