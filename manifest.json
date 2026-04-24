@@ -75,6 +75,10 @@
     {
       "id": 21,
       "name": "Gesturing hand waving"
+    },
+    {
+      "id": 22,
+      "name": "Covering face with hands"
     }
   ],
   "videos": [
@@ -527,6 +531,31 @@
       "path": "static/videos/22_gesturing_hand_waving_real/22_025.mp4",
       "class_id": 21,
       "class_name": "Gesturing hand waving"
+    },
+    {
+      "path": "static/videos/23_covering_face_with_hands_real/23_001.mp4",
+      "class_id": 22,
+      "class_name": "Covering face with hands"
+    },
+    {
+      "path": "static/videos/23_covering_face_with_hands_real/23_002.mp4",
+      "class_id": 22,
+      "class_name": "Covering face with hands"
+    },
+    {
+      "path": "static/videos/23_covering_face_with_hands_real/23_003.mp4",
+      "class_id": 22,
+      "class_name": "Covering face with hands"
+    },
+    {
+      "path": "static/videos/23_covering_face_with_hands_real/23_004.mp4",
+      "class_id": 22,
+      "class_name": "Covering face with hands"
+    },
+    {
+      "path": "static/videos/23_covering_face_with_hands_real/23_005.mp4",
+      "class_id": 22,
+      "class_name": "Covering face with hands"
     }
   ]
 }
