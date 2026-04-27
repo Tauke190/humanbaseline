@@ -1,0 +1,74 @@
+{
+  "session_id": "f5d29329-3cd6-4f71-9e9f-66572c6a10bf",
+  "started_at": 1777046773.7147682,
+  "videos": [
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/13_walking_with_normal_gait_real/13_031.mp4",
+      "name": "13_031.mp4",
+      "class_id": 12,
+      "class_name": "Walking with normal gait"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/07_taking_medicine_real/07_143.mp4",
+      "name": "07_143.mp4",
+      "class_id": 6,
+      "class_name": "Taking medicine"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/11_patient_involuntary_movements_real/11_011.mp4",
+      "name": "11_011.mp4",
+      "class_id": 10,
+      "class_name": "Patient involuntary movements"
+    },
+    {
+      "path": "/mnt/SSD2/synthetic_patient_output/patient_care_videos/reallife/08_walking_with_walker_real/08_007.mp4",
+      "name": "08_007.mp4",
+      "class_id": 7,
+      "class_name": "Walking with walker"
+    }
+  ],
+  "answers": [
+    {
+      "video_index": 0,
+      "true_class_id": 12,
+      "true_class_name": "Walking with normal gait",
+      "predicted_class_id": 0,
+      "predicted_class_name": "Lying on bed",
+      "correct": false,
+      "elapsed_ms": 1353,
+      "answered_at": 1777046775.1922524
+    },
+    {
+      "video_index": 1,
+      "true_class_id": 6,
+      "true_class_name": "Taking medicine",
+      "predicted_class_id": 13,
+      "predicted_class_name": "Wheelchair seated",
+      "correct": false,
+      "elapsed_ms": 8809,
+      "answered_at": 1777046784.5552244
+    },
+    {
+      "video_index": 2,
+      "true_class_id": 10,
+      "true_class_name": "Patient involuntary movements",
+      "predicted_class_id": 17,
+      "predicted_class_name": "Scratching body",
+      "correct": false,
+      "elapsed_ms": 592,
+      "answered_at": 1777046785.4103603
+    },
+    {
+      "video_index": 3,
+      "true_class_id": 7,
+      "true_class_name": "Walking with walker",
+      "predicted_class_id": 14,
+      "predicted_class_name": "Nausea vomiting",
+      "correct": false,
+      "elapsed_ms": 711,
+      "answered_at": 1777046786.4155552
+    }
+  ],
+  "completed": true,
+  "completed_at": 1777046786.4155571
+}
